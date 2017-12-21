@@ -1,0 +1,251 @@
+<!--component-base构件库简写-->
+<div class="component-base">
+	<!--header 页面中的头部-->
+	<!--<header ng-include="'template/core/header.html'" class="component-logo"></header>-->
+	<div class="component-logo">
+		<div class="component-computer-logo  clearfix">
+			<div class="col-xs-3">
+			<span>
+				<img src="imgs/icon-cloud.jpg">
+				<h1 class="">云构件库</h1>
+			</span>
+
+			</div>
+			<div class="col-xs-9 component-search">
+				<div ng-click="uploadCom()" ng-show="isUpload"><span class="icon-tool"></span>上传构件</div>
+				<form role="form">
+					<input type="text" placeholder="输入构件名称" class="form-control col-xs-3 searchtext" ng-keydown="search($event,searchText)" ng-model="searchText">
+					<div class="absol search-btn" ng-click="search(null,searchText)" ><img src="imgs/icon/icon-search.png" alt="" class="icon-search"></div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!---页面内容main-->
+	<article class="componet-base-main">
+		<!--main-siderbar(侧边栏)-->
+		<aside class="main-siderbar">
+			<!--侧边栏菜单-->
+			<ul class="source">
+				<li class="btnActive">
+					<p ng-click="public($event)"><span class="hoverSpan"></span>公共库</p>
+				</li>
+				<li>
+					<p ng-show="orgShow" ng-click="company($event)"><span class="hoverSpan"></span>企业库</p>
+					<ul class="ztree" id="sourceTree" style="overflow-y:auto;max-height: 300px;"></ul>
+				</li>
+				<li>
+					<p ui-sref="upload" ng-show="isUpload"><span class="hoverSpan"></span>我的上传</p>
+					<ul>
+						<li><span class="menusName side-active">全部</span></li>
+						<li><span class="menusName">待审核</span></li>
+						<li><span class="menusName">已通过</span></li>
+						<li><span class="menusName">未通过</span></li>
+					</ul>
+				</li>
+				<li>
+					<p ui-sref="audit" ng-show="isAduit"><span class="hoverSpan"></span>我的审核</p>
+					<div class="conHover"></div>
+					<div class="conActive"></div>
+					<ul>
+						<li><span class="menusName side-active">全部</span></li>
+						<li><span class="menusName">待审核</span></li>
+						<li><span class="menusName">已通过</span></li>
+						<li><span class="menusName">未通过</span></li>
+					</ul>
+				</li>
+			</ul>
+		</aside>
+		<!--component-container(右侧内容)-->
+		<section class="container-fluid">
+			<!--component-filter（构件筛选）-->
+			<div class="component-list">
+				<div class="component-filter">
+					<div class="filter-status" style="height: 50px;line-height: 50px">
+						<div class="filter-ele" ><div ng-click="source()" class="filter-first-ele">公共库</div></div>
+						<span ng-show="isBlock" ng-click="cancelFilter()">清空筛选</span>
+					</div>
+					<!--筛选大类-->
+					<div class="filter-infoList" ng-if="isType">
+						<!--筛选标题-->
+						<p style="margin-right: 2px;"><b>大类:</b></p>
+						<!--筛选内容-->
+						<div class="filter-condition row" style="width:calc(100% - 56px );">
+							<div class="filter-ele" ng-click="isTypeFilter($event)" style="max-height: 245px;">
+								<span ng-repeat="item in typeList track by $index" data-id="{{item.compClassId}}" title="{{item.compClassName}}">{{item.compClassName}}</span>
+							</div>
+						</div>
+					</div>
+					<!--筛选小类-->
+					<div class="filter-infoList" ng-if="isSType">
+						<!--筛选标题-->
+						<p style="margin-right: 2px;"><b>小类:</b></p>
+						<!--筛选内容-->
+						<div class="filter-condition row" style="width:calc(100% - 56px );">
+							<div class="filter-ele" ng-click="isSTypeFilter($event)" style="max-height: 245px;">
+								<span ng-repeat="item in sTypeList track by $index" data-id="{{item.subClassId}}" title="{{item.subClassName}}">{{item.subClassName}}</span>
+							</div>
+						</div>
+					</div>
+					<!--筛选类型-->
+					<div class="filter-infoList" ng-if="isTypes&&typesList.length>0">
+						<!--筛选标题-->
+						<p style="margin-right: 2px;" class="selectTitle"><b>类型:</b></p>
+						<!--筛选内容-->
+						<div class="filter-condition row" style="width:calc(100% - 56px )">
+							<div class="filter-ele" ng-click="isTypesFilter($event)" style="max-height: 40px;overflow:hidden;">
+								<span ng-repeat="item in typesList track by $index" title="{{item.subClassName}}" ng-click="seltypes(item.subClassName,item.subClassId)">
+									<label class="check-box" style="margin-top: -7px">
+										<input type="checkbox">
+										<div class="simulated-box"></div>
+									</label><i style="display: inline-block;width: 60px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;padding-left:3px;position:relative;top:-2px;" data-id='{{item.subClassId}}'>{{item.subClassName}}</i>
+								</span>
+							</div>
+						
+							<div class="filter-tool">
+								<span class="filter-more showMore"><i class="moreBtn">更多</i>  <i class="glyphicon glyphicon-menu-up" style="margin-top: -3px"></i></span>
+								<span  data-type='types' data-switch='off' class="checkMore"><b>+</b>多选</span>
+							</div>
+							<div class="btns-item">
+								<button type="button"  data-type='types' class="btn btn-danger btn-ok">确定</button>
+								<button type="button"  data-type='types' class="btn btn-default btn-cancel">取消</button>
+							</div>
+
+						</div>
+					</div>
+					<!--筛选风格-->
+					<div class="filter-infoList" ng-if="isStyle">
+						<!--筛选标题-->
+						<p class="styleLable selectTitle" style=""><b>风格:</b></p>
+						<!--筛选内容-->
+						<div class="filter-condition row" style="width:calc(100% - 56px );">
+							<div class="filter-ele" ng-click="isStyleFilter($event)" style="max-height: 40px;overflow:hidden;">
+								<span ng-repeat="item in styleList track by $index" title="{{item.styleName}}">
+									<label class="check-box" style="margin-top: -7px">
+										<input type="checkbox">
+										<div class="simulated-box"></div>
+									</label><i style="display: inline-block;width: 60px; overflow: hidden;white-space: nowrap;text-overflow: ellipsis;padding-left:3px;position:relative;top:-2px;" data-id='{{item.styleId}}'>{{item.styleName}}</i>
+								</span>
+							</div>
+
+							<div class="filter-tool">
+								<span class="filter-more showMore"><i class="moreBtn">更多</i> <i class="glyphicon glyphicon-menu-up" style="margin-top: -3px"></i></span>
+								<span  data-type='style' data-switch='off' class="checkMore"><b>+</b>多选</span>
+							</div>
+							<div class="btns-item">
+								<button type="button"  data-type='style' class="btn btn-danger btn-ok">确定</button>
+								<button type="button"  data-type='style' class="btn btn-default btn-cancel">取消</button>
+							</div>
+						</div>
+					</div>
+					<!--筛选品牌-->
+					<div class="filter-brand filter-infoList" ng-if="isBrand">
+						<!--筛选标题-->
+						<p class="brandLable selectTitle"><b>品牌:</b></p>
+						<!--筛选内容-->
+						<div class="filter-condition row" style="width:calc(100% - 56px )">
+							<div class="filter-ele" ng-click="isBrandFilter($event)" style="max-height: 40px;overflow: hidden">
+								<span ng-repeat="item in brandsList" title="{{item.brandName}}">
+									<label class="check-box" style="margin-top: -4px">
+										<input type="checkbox">
+										<div class="simulated-box"></div>
+									</label><i data-id="{{item.brandId}}" style="display: inline-block;width: 60px; overflow: hidden;white-space: nowrap;text-overflow: ellipsis;padding-left:3px;" >{{item.brandName}}</i></span>
+							</div>
+							<div class="filter-tool">
+								<span class="filter-more showMore"><i class="moreBtn">更多</i> <i style="margin-top: -3px" class="glyphicon glyphicon-menu-up"></i></span>
+								<span data-type='brand'  data-switch='off' class="checkMore"><b>+</b>多选</span>
+							</div>
+							<div class="btns-item">
+								<button type="button" data-type='brand' class="btn btn-danger btn-ok">确定</button>
+								<button type="button" data-type='brand' class="btn btn-default btn-cancel">取消</button>
+							</div>
+						</div>
+					</div>
+					<p class="filter-down activeShow" ng-show="filterDown"><i class="moreSelect">更多选项</i> <i class="glyphicon glyphicon-menu-down"></i><i class="glyphicon glyphicon-menu-up"></i></p>
+				</div>
+				
+				<!--component-infoList(构件信息展示)-->
+				<div class="component-info" style="position: relative;">
+				<div class="page">	
+					<span><i style="color: orange">{{currentPage}}</i>/{{pageCount}}</span><ul uib-pager previous-text="<" items-per-page={{pageSize}}  next-text=">" num-pages="numPages" total-items="bigTotalItems" ng-model="currentPage" ng-change="pageChanged(currentPage)"></ul>
+				</div>
+					<ul class="clearfix">
+						 <li ng-repeat="itemList in data.componentList track by $index" repeat-finish sta="{{itemList.subClassName}},{{itemList.guid}},{{itemList.md5}},{{itemList.epId}},{{itemList.originEpId}},{{itemList.lastestClientVersion}}">
+							<div class="preview-model" name="{{itemList.componentId}}{{itemList.epId}}{{itemList.originEpId}}">
+								<div ng-show="itemList.statusLable" class="statusLable">已下载</div>
+								<div ng-show="itemList.statusVerson" class="statusVerson">版本过高</div>
+								<div ng-show="itemList.proContiner" class="proContiner" style="position: absolute;left: 0;top: 0;width: 240px;height: 277px;background: rgba(0,0,0,0.5)">
+									<div class="progress progress-striped" style="position: absolute; top: 30%;left:0;width: 240px;height: 20px;margin: 0;">
+										<div class="progress-bar progress-bar-info" role="progressbar"
+											 aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+											 style="width: 0%;">
+											<span class="sr-only">30% 完成（信息）</span>
+										</div>
+									</div>
+								</div>
+								<div class="preview-big" ng-click="componetModal(itemList.componentId,itemList.epId,itemList)"><img ng-repeat="item in itemList.attachmentInfo track by $index"  ng-src="imgs/placeholder.png" src="{{item.displayUrl}}?name={{item.fileName}}"/></div>
+							</div>
+							<div class="preview-tool">
+								<a ng-click="componetModal(itemList.componentId,itemList.epId,itemList)" style="cursor: pointer" title="{{itemList.componentDisplayName}}">{{itemList.componentDisplayName}}</a>
+								<a style="cursor: pointer"><span class="icon-describe"></span>
+									<i ng-show="itemList.staBtnLoad" class="staBtnLoad staBtn"  ng-click="down(itemList.componentId,itemList.epId,itemList.originEpId,itemList.epName,itemList.originEpName,itemList.subClassName,itemList.guid,itemList.md5,itemList.lastestClientVersion,itemList)">下载</i>
+									<i ng-show="itemList.staBtnData" class="staBtnData staBtn"  ng-click="down(itemList.componentId,itemList.epId,itemList.originEpId,itemList.epName,itemList.originEpName,itemList.subClassName,itemList.guid,itemList.md5,itemList.lastestClientVersion,itemList)">更新</i>
+									<i ng-show="itemList.staBtnApply" class="staBtnApply staBtn" style="cursor: pointer" ng-click="apply(itemList.subClassName,itemList.guid,itemList.epId,itemList.originEpId)">应用</i>
+									<i ng-show="itemList.staBtnVerson" class="staBtnVerson staBtn" >版本过高</i>
+								</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="pagination">
+                <div class="clearfix">
+                    <ul uib-pagination total-items="bigTotalItems" force-ellipses="true" items-per-page={{pageSize}}  ng-model="currentPage" ng-change="pageChanged(currentPage)" first-text="首页"  last-text="尾页" previous-text="上一页"  next-text="下一页" max-size="maxSize" class="pagination-sm" boundary-links="true" num-pages="numPages"></ul>
+                    <span>共 {{numPages}} 页 </span>
+                    <div class="pagination-dump">
+                        <p class="dump-inp inline"> ,  跳转到   <input type="text" ng-keydown="getDumpOk($event,numPages)"  class="form-control inline"> </p>
+                        <button type="button " class="inline btn btn-default btn-sm" ng-click="getDumpOk(null,numPages)">确定</button>
+                    </div>
+                </div>
+            </div>
+		</section>
+
+	</article>
+	<div class="return-top" ng-click="reTop()">
+		<img src="imgs/icon/icon-top.jpg">
+		<!--<h5 class="textTop">回到顶部</h5>-->
+	</div>
+</div>
+<script type="text/javascript">
+	var appElement = document.querySelector('[ng-controller=uploadComCtrl]');//获取$scope变量
+	var $scope = angular.element(appElement).scope();
+	//下载进度条函数
+	function downloadProcess(componentId,epId,originEpId,percent,text){
+		console.log(componentId,epId,originEpId,percent,text)
+		var ele = '.preview-model[name = ' +
+				componentId.toString() + epId.toString() + originEpId.toString() +']';
+		var con = $(ele).children(".proContiner");
+		con.show();
+		if(percent < 0){
+			con.hide();
+			alert(con,"下载失败！");
+			con.children().find(".progress-bar").css("width",0);
+		}else{
+			var text = percent * 100 + "%";
+			con.children().find(".progress-bar").css("width",text);
+			if(percent == 1){
+				con.hide();
+				con.children().find(".progress-bar").css("width",0);
+				$(ele).next(".preview-tool").children().find(".staBtnLoad").hide();
+				$(ele).next(".preview-tool").children().find(".staBtnData").hide();
+				$(ele).next(".preview-tool").children().find(".staBtnApply").show();
+				$(ele).next(".preview-tool").children().find(".staBtnApply").removeClass("ng-hide");
+				$(ele).find(".statusLable").show().removeClass("ng-hide");
+				console.log('下载成功',$(ele).next(".preview-tool").children().find(".staBtnApply"))
+			}
+		}
+
+		// window.componentListUpdata();
+	}
+</script>
+
+
