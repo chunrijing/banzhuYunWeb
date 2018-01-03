@@ -1,0 +1,220 @@
+<style>
+	.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+		vertical-align: middle;
+		text-align: center;
+	}
+	.table>thead>tr>th {
+	    vertical-align: bottom;
+	    border-bottom: 0px solid #ddd;
+	}
+	.audit .simulated-box {
+		top:3px;
+	}
+	.audit .tab-list>li{
+		cursor: pointer;
+	}
+	.audit .proWrap{
+		width:100%;
+		height:100%;
+		background: rgba(0,0,0,0.5);
+		display:block;
+		position: absolute;
+		left: 0;top: 0;
+	}
+</style>  
+<!--component-base构件库简写-->
+<div class="component-base audit" side-style>
+	<!--header 页面中的头部-->
+	<!--<header ng-include="'template/core/header.html'" class="component-logo"></header>-->
+	<div class="component-logo">
+		<div class="component-computer-logo  clearfix">
+			<div class="col-xs-3">
+			<span>
+				<img src="imgs/audit.jpg" style="">
+				<h1 class="">我的审核</h1>
+			</span>
+
+			</div>
+			<div class="col-xs-9 component-search">
+				<div ng-click="uploadCom()" ng-show="isUpload"><span class="icon-tool"></span>上传构件</div>
+				<form role="form">
+					<input type="text" placeholder="输入构件名称" class="form-control col-xs-3 searchtext" ng-keydown="search($event,searchText)"  ng-model="searchText">
+					<div class="absol search-btn" ng-click="search(null,searchText)"><img src="imgs/icon/icon-search.png" alt="" class="icon-search"></div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!---页面内容main-->
+	<article class="componet-base-main">
+		<!--main-siderbar(侧边栏)-->
+		<aside class="main-siderbar">
+			<ul class="source">
+				<li>
+					<p ng-click="public()" ui-sref="component">公共库</p>
+				</li>
+				<li>
+					<p ng-show="orgShow" ui-sref="component({name:1})">企业库</p>
+					<ul class="ztree" id="sourceTree" style="overflow-y:auto;max-height: 300px"></ul>
+				</li>
+				<li>
+					<p ui-sref="upload" ng-show="isUpload">我的上传</p>
+					<ul>
+						<li><span class="menusName side-active">全部</span></li>
+						<li><span class="menusName">待审核</span></li>
+						<li><span class="menusName">已通过</span></li>
+						<li><span class="menusName">未通过</span></li>
+					</ul>
+				</li>
+				<li class="btnActive">
+					<p>我的审核</p>
+					<ul style="display: block">
+						<li><span class="menusName side-active" ng-click="getComponent(null)">全部</span></li>
+						<li><span class="menusName" ng-click="getComponent(1)">待审核</span></li>
+						<li><span class="menusName" ng-click="getComponent(2)">已通过</span></li>
+						<li><span class="menusName" ng-click="getComponent(3)">未通过</span></li>
+					</ul>
+				</li>
+			</ul>
+		</aside>
+		<!--component-container(右侧内容)-->
+		<section class="container-fluid">
+			<div class="rela tab-list">
+				<!-- <div class="inline"><label class="rela invert-select" ng-click="invertSelected()"><input type="checkbox"><div class="simulated-box"></div></label><span>反选</span></div> -->
+				<div class=""></div>
+				<ul class="tab-list clearfix">
+					<li ng-click="allSelected()"><button>全选</button></li>
+					<li ng-click="invertSelected()"><button>反选</button></li>
+					<li style="cursor: pointer" ng-click="downMuch()"><button><span class="icon-updown"></span>下载</button></li>
+					<li class="rela audit-status pop-signal" ng-click="flag.auditStatus == !flag.auditStatus">
+						<button class="pop-signal edit" ng-click="editAudit()">审核为...<span style="margin-top: -6px;" class="glyphicon glyphicon-menu-down pop-signal"></span></button>
+						<ul ng-show="flag.auditStatus" class="pop-signal">
+							<li class="pop-signal" ng-click="getAuditLists(2)" style="cursor: pointer">已通过</li>
+							<li class="pop-signal" ng-click="getAuditLists(3)" style="cursor: pointer">未通过</li>
+						</ul>
+					</li>
+					<li style="margin-left: 15px" ng-show="sourceStatus == 1">
+						<div class="companySource">
+							来源企业：<select ng-change="companySelect(originEpId)" ng-model="originEpId" ng-init="originEpId='null'" title="" style="width: 260px;overflow: hidden;">
+							<option value="null">不限</option>
+							<option ng-repeat="item in sourceList track by $index" value="{{item.originEpId}}" title="{{item.originEpName}}" style="word-break:break-all">{{item.originEpName}}</option>
+						</select>
+						</div>
+					</li>
+				</ul>
+				<div class="count-overview ">共<span class="text-orange" >{{statusCount}}</span>条{{statusCheck}}</div>
+			</div>
+			<div class="table-list table-simulate">
+				<table class="table" style="margin-bottom:0;border-bottom: none;">
+					<thead>
+						<tr style="height:47px;">
+							<th width="10%">
+								<!-- <label class="rela all-selected"><input type="checkbox" ng-click="allSelected()"><div class="simulated-box"></div></div></label> -->
+								<span>构件名称</span>
+							</th>
+							<th width="7%">大类</th>
+							<th width="7%">小类</th>
+							<th width="8%">品牌</th>
+							<th width="8%">型号</th>
+							<th width="8%" style="min-width:70px">图形</th>
+							<th width="8%">作者</th>
+							<th width="8%" ng-show="sourceStatus == 1">来源企业</th>
+							<th width="8%">审核状态</th>
+							<th width="8%">审核意见</th>
+							<th width="10%"  style="cursor: pointer" ng-click="orderList($event)">上传时间  <i class="glyphicon glyphicon-menu-down"></i><i class="glyphicon glyphicon-menu-up"></i></th>
+							<th width="10%">状态</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+			<div class="audit-list">
+				<div class="table-list table-body">
+					<table class="table tableBody">
+						<tbody>
+							<tr class="tbodyTr" ng-repeat="item in auditList track by $index" repeat-finish
+								 data-id="{{item.componentId}},{{item.epId}},{{item.originEpId}},{{item.epName}},{{item.originEpName}}"
+								sta="{{item.subClassName}},{{item.guid}},{{item.md5}},{{item.epId}},{{item.originEpId}},{{item.lastestClientVersion}}"
+								ids="{{item.componentId}}">
+								<td width="10%">
+									<label class="rela multi-choice">
+										<input type="checkbox" ng-click="updateSelection($event, item)">
+										<div class="simulated-box"></div>
+									</label>
+									<span title="{{item.componentDisplayName}}">{{item.componentDisplayName}}</span>
+								</td>
+								<td width="7%">{{item.compClassName}}</td>
+								<td width="7%">{{item.subClassName}}</td>
+								<td width="8%">{{item.brandName}}</td>
+								<td width="8%">{{item.model}}</td>
+								<td width="8%" style="min-width:70px;"><img style="width: 40px" ng-repeat=" items in item.attachment  track by $index" src="imgs/placeholder.png" _src="{{items.displayUrl}}?name={{items.fileName}}" /></td>
+								<td class='text_left' width="8%">{{item.author}}</td>
+								<td width="8%" title="{{item.originEpName}}" ng-show="sourceStatus == 1 && item.originEpId != 0" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{item.originEpName}}</td>
+								<td width="8%" title="{{item.epName}}" ng-show="sourceStatus == 1 && item.originEpId == 0" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{item.epName}}</td>
+								<td width="8%" class="aduitStatus" style="position: relative;" ng-click="item.listStatus=showAudit(item.status,listStatus,item)" >
+									<div style="cursor: pointer" ng-show="item.status == '待审核'" class="tdStatus">{{item.status}}<i ng-show="item.status == '待审核'" class="glyphicon glyphicon-menu-down"></i></div>
+									<div style="cursor: auto" ng-show="item.status != '待审核'" class="tdStatus">{{item.status}}<i ng-show="item.status == '待审核'" class="glyphicon glyphicon-menu-down"></i></div>
+									<ul class="pop-signal" ng-show="item.listStatus" style="width: 87%;font-size: 16px">
+										<li class="pop-signal" ng-click="getAuditList(2,item.componentId)" style="cursor: pointer">已通过</li>
+										<li class="pop-signal" ng-click="getAuditList(3,item.componentId)" style="cursor: pointer">未通过</li>
+									</ul>
+								</td>
+								<td width="8%" ng-click="showModal(item.componentId,item.opinion,item.status)"><span class="icon-sign"></span></td>
+								<td width="10%">{{item.uploadTime}}</td>
+								<td width="10%" class="proTd" name="{{item.componentId}}{{item.epId}}{{item.originEpId}}">
+									<i ng-show="item.nUpload" class="nUpload btn"  ng-click="down(item.componentId,item.epId,item.originEpId,item.epName,item.originEpName,item.subClassName,item.guid,item.md5,item.lastestClientVersion,$event,item)">未下载</i>
+									<i ng-show="item.yUpload" class="yUpload btn"  ng-click="apply(item.subClassName,item.guid,item.epId,item.originEpId,item)">应用</i>
+									<i ng-show="item.versonHigh" class="versonHigh btn" >版本过高</i>
+									<!--进度条-->
+									<div class="proContiner" ng-show="item.proContiner" style="width: 100%;height: 40px;background: rgba(0,0,0,0)">
+										<div class="progress progress-striped" style="position: relative; top: 26.5%;left:0;width: 100%;height: 20px;margin: 0;">
+											<div class="progress-bar progress-bar-info" role="progressbar"
+												 aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+												 style="width: 1%;">
+												<span class="sr-only">30% 完成（信息）</span>
+											</div>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="pagination">
+				<div class="clearfix"><!--items-per-page="60"-->
+					<ul uib-pagination total-items="bigTotalItems" force-ellipses="true" items-per-page={{pageSize}} ng-model="currentPage" ng-change="pageChanged(currentPage)" first-text="首页"  last-text="尾页" previous-text="上一页"  next-text="下一页" max-size="maxSize" class="pagination-sm" boundary-links="true" num-pages="numPages"></ul>
+					<span>共 {{numPages}} 页 </span>
+					<div class="pagination-dump">
+						<p class="dump-inp inline"> ,  跳转到   <input type="text" ng-keydown="getDumpOk($event,numPages)" class="form-control inline"> </p>
+						<button type="button " class="inline btn btn-default btn-sm" ng-click="getDumpOk(null,numPages)">确定</button>
+					</div>
+				</div>
+			</div>
+		</section>
+	</article>
+	<div class="return-top" ng-click="reTop()"><img src="imgs/icon/icon-top.jpg" alt=""></div>
+</div>
+<script type="text/javascript">
+	//下载进度条函数
+	function downloadProcess(componentId,epId,originEpId,percent,text){
+		var ele = '.proTd[name = ' +
+				componentId.toString() + epId.toString() + originEpId.toString() +']';
+//		$(ele).find('.btn').hide();
+		var con = $(ele).find(".proContiner");
+//		con.show();
+		if(percent < 0){
+			con.hide();
+			alert("下载失败！");
+			con.find(".nUpload").removeClass("ng-hide");
+			con.find(".progress-bar").css("width",0);
+		}else{
+			var text = percent * 100 + "%";
+			con.find(".progress-bar").css("width",text);
+			if(percent == 1){
+				con.hide();
+				con.find(".progress-bar").css("width",0);
+				$(ele).find('.yUpload').removeClass("ng-hide");
+			}
+		}
+		window.componentListUpdata();
+	}
+</script>
