@@ -1,84 +1,97 @@
-.largePattern{
-    position: relative;
+.largePattern {
+    position: relative
 }
-.largePattern .modelBtn{
+
+.largePattern .modelBtn {
     width: 25px;
     height: 25px;
     line-height: 19px;
     position: absolute;
     z-index: 10;
     padding: 2px;
-    cursor: pointer;
+    cursor: pointer
 }
-.largePattern .modelBtnl{
+
+.largePattern .modelBtnl {
     right: 35px;
     top: 12.5px;
-    background-color: #4990e2;
+    background-color: #4990e2
 }
-.largePattern .modelBtnm{
+
+.largePattern .modelBtnm {
     right: 5px;
     top: 12.5px;
-    background-color: #d2d2d2;
+    background-color: #d2d2d2
 }
-.largePattern .large-pattern, .largePattern .listMode{
+
+.largePattern .large-pattern,
+.largePattern .listMode {
     display: inline-block;
     width: 21px;
     height: 20px;
-    background: url("../imgs/icon/icon-mainEle.png") no-repeat;
-    background-color: #d2d2d2;
+    background: url(../imgs/icon/icon-mainEle.png) no-repeat #d2d2d2
 }
-.largePattern .large-pattern{
+
+.largePattern .large-pattern {
     background-position-y: -237px;
-    background-color: #4990e2;
+    background-color: #4990e2
 }
-.largePattern .listMode{
+
+.largePattern .listMode {
     background-position-y: -219.5px;
-    background-color: #d2d2d2;
+    background-color: #d2d2d2
 }
-.largePattern .preview-tool{
+
+.largePattern .preview-tool {
     text-align: center;
-    padding: 0 10px;
+    padding: 0 10px
 }
+
 .largePattern .preview-tool:hover {
-    cursor: pointer;
+    cursor: pointer
 }
-/*
-    左侧菜单栏
-*/
-.largePattern .component-btns>div{
+
+.largePattern .component-btns>div {
     width: 145px;
     height: 45px;
     border-radius: 30px;
     text-align: left;
     line-height: 43px;
-    color: #4990e2;margin: 15px 20px;font-size:14px;border:1px solid #4990e2;
+    color: #4990e2;
+    margin: 15px 20px;
+    font-size: 14px;
+    border: 1px solid #4990e2
 }
-.largePattern .component-btns>div span{
+
+.largePattern .component-btns>div span {
     width: 24px;
     height: 20px;
     margin-right: 10px;
     display: inline-block;
-    background: url(../imgs/icon/icon-mainEle.png) no-repeat 0 0;
+    background: url(../imgs/icon/icon-mainEle.png) no-repeat;
     float: left;
     margin-left: 21px;
-    margin-top: 13px;
+    margin-top: 13px
 }
-.largePattern .component-btns>div:nth-child(1) .icon-tool{
-    background-position-y: -34px;
+
+.largePattern .component-btns>div:nth-child(1) .icon-tool {
+    background-position-y: -34px
 }
-.largePattern .component-btns>div:nth-child(2) .icon-tool{
-    background-position-y: -152px;
+
+.largePattern .component-btns>div:nth-child(2) .ichon-tool {
+    background-position-y: -152px
 }
-.largePattern .component-btns>div:hover{
-    cursor:pointer; background:#4990e2;color:#fff;
+
+.largePattern .component-btns>div:hover {
+    cursor: pointer;
+    background: #4990e2;
+    color: #fff
 }
-.largePattern .component-btns>div:nth-child(1):hover .icon-tool{
-    background-position-y: -55px;
+
+.largePattern .component-btns>div:nth-child(1):hover .icon-tool {
+    background-position-y: -55px
 }
-.largePattern .component-btns>div:nth-child(2):hover .icon-tool{
-    background-position-y: -171px ;
-}
-/*详情框样式*/
-.largePattern-modal .modal-dialog .modal-content{
-    /*height:570px;*/
+
+.largePattern .component-btns>div:nth-child(2):hover .icon-tool {
+    background-position-y: -171px
 }

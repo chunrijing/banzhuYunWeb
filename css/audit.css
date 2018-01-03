@@ -1,227 +1,266 @@
-.table>tbody>tr>td:nth-child(1	){
-	text-align:left;
+.table>tbody>tr>td:nth-child(1) {
+    text-align: left
 }
+
 .audit .audit-list {
-	background: #fff;
-	/*height:calc(100vh - 312px);*/
+    background: #fff
 }
-.audit .audit-list tbody tr td:nth-last-child(3){
-	cursor: pointer;
+
+.audit .audit-list tbody tr td:nth-last-child(3) {
+    cursor: pointer
 }
+
 .audit .count-overview {
-	position: absolute;
-	right: 30px;
-	top: 0;
+    position: absolute;
+    right: 30px;
+    top: 0
 }
+
 .audit .table-simulate {
-	overflow: auto;
-	/*padding-right: 17px;*/
+    overflow: auto
 }
+
 .audit .tab-list {
-	height: 50px;
-	background: #f2f2f2;
-}
-.audit .tab-list {
-	vertical-align: middle;
+    height: 50px;
+    background: #f2f2f2;
+    vertical-align: middle;
     line-height: 49px;
-	display: flex;
-	align-items: center;
+    display: flex;
+    align-items: center
 }
+
 .audit .tab-list label {
-	margin-right: 13px;
+    margin-right: 13px
 }
+
 .audit .tab-list .simulated-box {
     top: 17px;
-    left: 8px;
+    left: 8px
 }
-.audit .audit-status ul{
-	position: absolute;
+
+.audit .audit-status ul {
+    position: absolute;
     top: 30px;
     left: 11px;
     background: #fff;
     border: 1px solid #ccc;
-	-webkit-box-shadow: 1px 0px 7px rgba(0,0,0,0.3);
-	-moz-box-shadow:1px 0px 7px rgba(0,0,0,0.3);
-	box-shadow: 1px 0px 7px rgba(0,0,0,0.3);
+    -webkit-box-shadow: 1px 0 7px rgba(0, 0, 0, .3);
+    -moz-box-shadow: 1px 0 7px rgba(0, 0, 0, .3);
+    box-shadow: 1px 0 7px rgba(0, 0, 0, .3)
 }
-.audit .audit-status .pop-signal li{
-	padding: 0;
-	width: 76px;
-	font-size: 13px;
-}
-.audit .audit-status ul>li{
-	height:35px;
-	line-height:35px;
-	text-align:center;padding:0 10px ;
-}
-.audit .audit-status ul>li:hover{
-	color:#4990e2;
-}
-.audit .tab-list > li {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	/*width: 100px;*/
-	min-width: 40px;
-	padding: 0 10px;
-	text-align: center;
-}
-.audit .tab-list li button{
-	height: 30px;
-	line-height: 27px;
-	padding: 0 6px;
-	font-size: 13px;
-}
-/*.audit .tab-list>li:nth-child(2){
-	width:48px;
-}*/
 
-.audit .table>thead>tr>th .glyphicon, .audit .table>tbody>tr>td .glyphicon{
+.audit .audit-status .pop-signal li {
+    padding: 0;
+    width: 76px;
+    font-size: 13px
+}
+
+.audit .audit-status ul>li {
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    padding: 0 10px
+}
+
+.audit .audit-status ul>li:hover {
+    color: #4990e2
+}
+
+.audit .tab-list>li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    padding: 0 10px;
+    text-align: center
+}
+
+.audit .tab-list li button {
+    height: 30px;
+    line-height: 27px;
+    padding: 0 6px;
+    font-size: 13px
+}
+
+.audit .table>tbody>tr>td .glyphicon,
+.audit .table>thead>tr>th .glyphicon {
     color: #ccc;
     font-size: 10px;
     position: relative;
-    top:-1px;
+    top: -1px
 }
-.audit .table>thead>tr>th .glyphicon-menu-up, .audit .table>tbody>tr>td .glyphicon-menu-up{
-    display: none;
+
+.audit .table>tbody>tr>td .glyphicon-menu-up,
+.audit .table>thead>tr>th .glyphicon-menu-up {
+    display: none
 }
-.audit .table>thead>tr>th.showOrder .glyphicon-menu-up,.audit .table>thead>tr>td.showOrder .glyphicon-menu-up{
+
+.audit .table>thead>tr>td.showOrder .glyphicon-menu-up,
+.audit .table>thead>tr>th.showOrder .glyphicon-menu-up {
     display: inline-block;
-	margin: 0;
-}
-.audit .table>thead>tr>th.showOrder .glyphicon-menu-down,.audit .table>thead>tr>td.showOrder .glyphicon-menu-down{
-    display: none;
+    margin: 0
 }
 
-
-.audit-status>div{
-	background: #fff;
-	height: 30px;
-	line-height: 27px;
-	padding: 0 11px;
-	font-size: 14px;
-	border: 1px solid #ddd;
-}
-.audit-status>div .glyphicon{
-	font-size: 12px;
-	color: #999;
-	position: relative;
-	top:-2px;
-	left: 4px;
-}
-.audit table.table{
-	table-layout:fixed;
-	border: 1px solid #ddd;
-	border-right: none;
-	border-top: snow;
-}
-.audit table.table tr{
-	vertical-align: middle !important;
-}
-.audit table.table tr td>label{
-	margin-right:6px;
-}
-.audit table.table tr td> label+span{
-	display: inline-block;
-	width: 50%;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-}
-.audit table tr td{
-	font-size:14px;font-family:'microsoft yahei'
-}
-.audit table tr td.text_left,.audit .table th.text_left{
-	/*text-align: left;*/
-}
-.audit table tr td .tdStatus{
-	position: relative;
-}
-.audit table tr td .tdStatus .glyphicon-menu-down{
-	font-size: 10px;
-	position: absolute;
-	color: #999;
-	top:4px;
-	margin-left: 2px;
+.audit .table>thead>tr>td.showOrder .glyphicon-menu-down,
+.audit .table>thead>tr>th.showOrder .glyphicon-menu-down {
+    display: none
 }
 
-.modal-audit .modal-body>p{
-	font-size: 20px;
-	margin-bottom: 15px;
-}
-/**/
-.audit  .glyphicon-menu-up{
-	margin:-6px 0 0 6px;
-}
-/*text-warning*/
-.text-orange{
-	color:orange;font-size: 18px;
-}
-/*icon-updown*/
-.icon-updown{
-	width:20px;height:20px;display:inline-block;background:url('../imgs/icon/icon-mainEle.png') no-repeat 0 -279px ;margin-right:3px;
-}
-.icon-sign{
-	width:27px;height:20px;display:inline-block;background:url('../imgs/icon/icon-mainEle.png') no-repeat 0 -257px ;margin-right:3px;
-
-}
-.audit .table td ul{
-	position: absolute;
-	top: 53px;
-	left: 10px;
-	background: #fff;
-	border: 1px solid #ccc;
-	-webkit-box-shadow: 1px 0px 7px rgba(0,0,0,0.3);
-	-moz-box-shadow:1px 0px 7px rgba(0,0,0,0.3);
-	box-shadow: 1px 0px 7px rgba(0,0,0,0.3);
-	z-index: 10;
-}
-.audit .table td ul>li{
-	height:35px;
-	line-height: 35px;
-	padding: 0 10px;
-}
-.audit .table td ul>li:hover{
-	color:#4990e2;
-}
-.audit-modal .modal-dialog .modal-content{
-	/*height: 400px!important;*/
-}
-/*左侧抽屉*/
-.audit .component-btns>div{
-	width: 145px;
-	height: 45px;
-	border-radius: 30px;
-	text-align: left;
-	line-height: 43px;
-	color: #4990e2;margin: 15px 20px;font-size:14px;border:1px solid #4990e2;
-}
-.audit .component-btns>div span{
-	width: 24px;
-	height: 20px;
-	margin-right: 10px;
-	display: inline-block;
-	background: url(../imgs/icon/icon-mainEle.png) no-repeat 0 0;
-	float: left;
-	margin-left: 21px;
-	margin-top: 13px;
-}
-.audit .component-btns>div:hover{
-	cursor:pointer; background:#4990e2;color:#fff;
-}
-.audit .component-btns>div:nth-child(1) .icon-tool{
-	background-position-y: -34px!important;
-}
-.audit .component-btns>div:nth-child(1):hover .icon-tool{
-	background-position-y: -55px!important;
-}
-.audit .component-btns>div:nth-child(2) .icon-tool{
-	background-position-y: -110px ;
-}
-.audit .component-btns>div:nth-child(2):hover .icon-tool{
-	background-position-y: -130px ;
+.audit-status>div {
+    background: #fff;
+    height: 30px;
+    line-height: 27px;
+    padding: 0 11px;
+    font-size: 14px;
+    border: 1px solid #ddd
 }
 
-.audit .table-body{
-	overflow: hidden;
+.audit-status>div .glyphicon {
+    font-size: 12px;
+    color: #999;
+    position: relative;
+    top: -2px;
+    left: 4px
+}
+
+.audit table.table {
+    table-layout: fixed;
+    border: 1px solid #ddd;
+    border-right: none;
+    border-top: snow
+}
+
+.audit table.table tr {
+    vertical-align: middle!important
+}
+
+.audit table.table tr td>label {
+    margin-right: 6px
+}
+
+.audit table.table tr td>label+span {
+    display: inline-block;
+    width: 50%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+
+.audit table tr td {
+    font-size: 14px;
+    font-family: 'microsoft yahei'
+}
+
+.audit table tr td .tdStatus {
+    position: relative
+}
+
+.audit table tr td .tdStatus .glyphicon-menu-down {
+    font-size: 10px;
+    position: absolute;
+    color: #999;
+    top: 4px;
+    margin-left: 2px
+}
+
+.modal-audit .modal-body>p {
+    font-size: 20px;
+    margin-bottom: 15px
+}
+
+.audit .glyphicon-menu-up {
+    margin: -6px 0 0 6px
+}
+
+.icon-sign,
+.icon-updown {
+    height: 20px;
+    margin-right: 3px;
+    display: inline-block
+}
+
+.text-orange {
+    color: orange;
+    font-size: 18px
+}
+
+.icon-updown {
+    width: 20px;
+    background: url(../imgs/icon/icon-mainEle.png) 0 -279px no-repeat
+}
+
+.icon-sign {
+    width: 27px;
+    background: url(../imgs/icon/icon-mainEle.png) 0 -257px no-repeat
+}
+
+.audit .table td ul {
+    position: absolute;
+    top: 53px;
+    left: 10px;
+    background: #fff;
+    border: 1px solid #ccc;
+    -webkit-box-shadow: 1px 0 7px rgba(0, 0, 0, .3);
+    -moz-box-shadow: 1px 0 7px rgba(0, 0, 0, .3);
+    box-shadow: 1px 0 7px rgba(0, 0, 0, .3);
+    z-index: 10
+}
+
+.audit .table td ul>li {
+    height: 35px;
+    line-height: 35px;
+    padding: 0 10px
+}
+
+.audit .table td ul>li:hover {
+    color: #4990e2
+}
+
+.audit .component-btns>div {
+    width: 145px;
+    height: 45px;
+    border-radius: 30px;
+    text-align: left;
+    line-height: 43px;
+    color: #4990e2;
+    margin: 15px 20px;
+    font-size: 14px;
+    border: 1px solid #4990e2
+}
+
+.audit .component-btns>div span {
+    width: 24px;
+    height: 20px;
+    margin-right: 10px;
+    display: inline-block;
+    background: url(../imgs/icon/icon-mainEle.png) no-repeat;
+    float: left;
+    margin-left: 21px;
+    margin-top: 13px
+}
+
+.audit .component-btns>div:hover {
+    cursor: pointer;
+    background: #4990e2;
+    color: #fff
+}
+
+.audit .component-btns>div:nth-child(1) .icon-tool {
+    background-position-y: -34px!important
+}
+
+.audit .component-btns>div:nth-child(1):hover .icon-tool {
+    background-position-y: -55px!important
+}
+
+.audit .component-btns>div:nth-child(2) .icon-tool {
+    background-position-y: -110px
+}
+
+.audit .component-btns>div:nth-child(2):hover .icon-tool {
+    background-position-y: -130px
+}
+
+.audit .table-body {
+    overflow: hidden
 }
