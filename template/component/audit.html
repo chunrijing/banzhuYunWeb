@@ -146,7 +146,7 @@
 								<td width="8%">{{item.brandName}}</td>
 								<td width="8%">{{item.model}}</td>
 								<td width="8%" style="min-width:70px;"><img style="width: 40px" ng-repeat=" items in item.attachment  track by $index" src="imgs/placeholder.png" _src="{{items.displayUrl}}?name={{items.fileName}}" /></td>
-								<td class='text_left' width="8%">{{item.author}}</td>
+								<td class='text_left' width="8%" title="{{item.author}}" >{{item.author}}</td>
 								<td width="8%" title="{{item.originEpName}}" ng-show="sourceStatus == 1 && item.originEpId != 0" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{item.originEpName}}</td>
 								<td width="8%" title="{{item.epName}}" ng-show="sourceStatus == 1 && item.originEpId == 0" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{item.epName}}</td>
 								<td width="8%" class="aduitStatus" style="position: relative;" ng-click="item.listStatus=showAudit(item.status,listStatus,item)" >
@@ -159,7 +159,7 @@
 								</td>
 								<td width="8%" ng-click="showModal(item.componentId,item.opinion,item.status)"><span class="icon-sign"></span></td>
 								<td width="10%">{{item.uploadTime}}</td>
-								<td width="10%" class="proTd" name="{{item.componentId}}{{item.epId}}{{item.originEpId}}">
+								<td width="10%" class="proTd" proName="{{item.componentDisplayName}}" name="{{item.componentId}}{{item.epId}}{{item.originEpId}}">
 									<i ng-show="item.nUpload" class="nUpload btn"  ng-click="down(item.componentId,item.epId,item.originEpId,item.epName,item.originEpName,item.subClassName,item.guid,item.md5,item.lastestClientVersion,$event,item)">未下载</i>
 									<i ng-show="item.yUpload" class="yUpload btn"  ng-click="apply(item.subClassName,item.guid,item.epId,item.originEpId,item)">应用</i>
 									<i ng-show="item.versonHigh" class="versonHigh btn" >版本过高</i>
@@ -198,12 +198,11 @@
 	function downloadProcess(componentId,epId,originEpId,percent,text){
 		var ele = '.proTd[name = ' +
 				componentId.toString() + epId.toString() + originEpId.toString() +']';
-//		$(ele).find('.btn').hide();
 		var con = $(ele).find(".proContiner");
-//		con.show();
+		let name = $(ele).attr("proName");
 		if(percent < 0){
 			con.hide();
-			alert("下载失败！");
+			alert(name+"下载失败，请重新下载！");
 			con.find(".nUpload").removeClass("ng-hide");
 			con.find(".progress-bar").css("width",0);
 		}else{

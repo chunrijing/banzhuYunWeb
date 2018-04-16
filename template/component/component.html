@@ -170,7 +170,7 @@
 					</div>
 					<ul class="clearfix">
 						 <li ng-repeat="itemList in data.componentList track by $index" repeat-finish sta="{{itemList.subClassName}},{{itemList.guid}},{{itemList.md5}},{{itemList.epId}},{{itemList.originEpId}},{{itemList.lastestClientVersion}}">
-							<div class="preview-model" name="{{itemList.componentId}}{{itemList.epId}}{{itemList.originEpId}}">
+							<div class="preview-model" proName="{{itemList.componentDisplayName}}" name="{{itemList.componentId}}{{itemList.epId}}{{itemList.originEpId}}">
 								<div ng-show="itemList.statusLable" class="statusLable">已下载</div>
 								<div ng-show="itemList.statusVerson" class="statusVerson">版本过高</div>
 								<div ng-show="itemList.proContiner" class="proContiner" style="position: absolute;left: 0;top: 0;width: 240px;height: 277px;background: rgba(0,0,0,0.5)">
@@ -224,10 +224,11 @@
 		var ele = '.preview-model[name = ' +
 				componentId.toString() + epId.toString() + originEpId.toString() +']';
 		var con = $(ele).children(".proContiner");
+		let name = $(ele).attr("proName");
 		con.show();
 		if(percent < 0){
 			con.hide();
-			alert(con,"下载失败！");
+			alert(name+"下载失败，请重新下载！");
 			con.children().find(".progress-bar").css("width",0);
 		}else{
 			var text = percent * 100 + "%";
