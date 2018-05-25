@@ -15,6 +15,8 @@ angular.module('core').controller('auditCtrl', ['$scope', '$http', '$rootScope',
 
         var pageSize = ApplicationConfiguration.pagesize.pageSize;
         $scope.pageSize = pageSize;
+        var isHighVersion = ApplicationConfiguration.isHighversion.isHighVersion;
+        $scope.isHighVersion = isHighVersion;
 
         window.onresize = function () {
             $(".tableBody").css("width", $(".container-fluid").css("width"));
@@ -645,15 +647,14 @@ angular.module('core').controller('auditCtrl', ['$scope', '$http', '$rootScope',
          * 上传构件
          * */
         $scope.uploadCom = function () {
-            if (BzCloudComp.GetVersion) {
-                console.log("新版本");
+            if($scope.isHighVersion){
                 let zNodes = BzCloudComp.GetUpLoadDetail();
                 if (zNodes == '') {
                     document.title = '提示';
                     alert("当前无可上传构件!");
                     return
-                }
-            } else {
+                }  
+            }else{
                 alert("客户端版本过低，请升级到最新版本！");
                 return
             }

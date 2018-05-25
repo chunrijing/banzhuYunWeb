@@ -6,6 +6,8 @@
 angular.module('core').controller('componentCtrl', ['$scope', '$http', '$rootScope', '$uibModal', 'commonService', '$timeout', '$compile', '$state', "$stateParams",
     function ($scope, $http, $rootScope, $uibModal, commonService, $timeout, $compile, $state, $stateParams) {
         var pageSize = ApplicationConfiguration.pagesize.pageSize;
+        var isHighVersion = ApplicationConfiguration.isHighversion.isHighVersion;
+        $scope.isHighVersion = isHighVersion;
         $scope.pageSize = pageSize;
         $(".upload .main .tableBody img").attr({"src":"","_src":""});
         $(".audit .tableBody img").attr({"src":"","_src":""});
@@ -1658,19 +1660,17 @@ angular.module('core').controller('componentCtrl', ['$scope', '$http', '$rootSco
         * 上传构件
         * */
         $scope.uploadCom = function () {
-            if (BzCloudComp.GetVersion) {
-                console.log("新版本");
+            if($scope.isHighVersion){
                 let zNodes = BzCloudComp.GetUpLoadDetail();
                 if (zNodes == '') {
                     document.title = '提示';
                     alert("当前无可上传构件!");
                     return
-                }
-            } else {
+                }  
+            }else{
                 alert("客户端版本过低，请升级到最新版本！");
                 return
             }
-
             var modalInstance = $uibModal.open({
                 windowClass: 'uploadCom-modal',
                 backdrop: 'static',
